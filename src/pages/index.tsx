@@ -1,6 +1,7 @@
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
+import Image from "next/image";
 
 import { type RouterOutputs, api } from "~/utils/api";
 
@@ -13,10 +14,12 @@ const CreatePostWizard = () => {
 
   return (
     <div className="flex w-full gap-4">
-      <img
+      <Image
         src={user.profileImageUrl}
         alt="Profile Image"
         className="h-14 w-14 rounded-full"
+        width={56}
+        height={56}
       />
       <input
         type="text"
@@ -32,10 +35,12 @@ type PostWithUsers = RouterOutputs["posts"]["getAll"][number];
 const PostView = ({ post, author }: PostWithUsers) => {
   return (
     <div className="flex w-full gap-3 border-b border-slate-400 p-4">
-      <img
+      <Image
         src={author.profilePicture}
-        alt="Profile Image"
+        alt={`@${author.username} profile image`}
         className="h-14 w-14 rounded-full"
+        width={56}
+        height={56}
       />
       <div>
         <div className="flex">
