@@ -3,8 +3,12 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { LoadingPage } from "~/components/Loading";
-
 import { type RouterOutputs, api } from "~/utils/api";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
+const createdDate = (date: string | Date): string => dayjs(date).fromNow();
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -41,9 +45,12 @@ const PostView = ({ post, author }: PostWithUsers) => {
         width={56}
         height={56}
       />
-      <div>
-        <div className="flex">
-          <span>{`@${author.username}`}</span>
+      <div className="ml-2">
+        <div className="mb-1 flex">
+          <span>{`@${author.username} `}</span>
+          <span className="ml-2 font-extralight text-slate-300">{` • ${createdDate(
+            post.createdAt
+          )}`}</span>
         </div>
         <span>{post.content}</span>
       </div>
