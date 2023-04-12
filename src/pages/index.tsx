@@ -52,7 +52,7 @@ const PostView = ({ post, author }: PostWithUsers) => {
             post.createdAt
           )}`}</span>
         </div>
-        <span>{post.content}</span>
+        <span className="text-xl">{post.content}</span>
       </div>
     </div>
   );
