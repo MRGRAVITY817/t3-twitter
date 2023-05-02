@@ -2,7 +2,7 @@ import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { LoadingPage } from "~/components/Loading";
+import LoadingSpinner, { LoadingPage } from "~/components/Loading";
 import { type RouterOutputs, api } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -57,12 +57,20 @@ const CreatePostWizard = () => {
         onChange={(e) => setInput(e.target.value)}
         disabled={isPosting}
       />
-      <button
-        onClick={submitPost}
-        className="rounded-md bg-blue-400 p-2 text-white"
-      >
-        Post
-      </button>
+      {input !== "" && !isPosting && (
+        <button
+          onClick={submitPost}
+          className="rounded-md bg-blue-400 p-2 text-white"
+          disabled={isPosting}
+        >
+          Post
+        </button>
+      )}
+      {isPosting && (
+        <div className="flex h-14 items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      )}
     </div>
   );
 };
