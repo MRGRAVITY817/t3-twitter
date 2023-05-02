@@ -7,6 +7,7 @@ import { type RouterOutputs, api } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 dayjs.extend(relativeTime);
 
 const createdDate = (date: string | Date): string => dayjs(date).fromNow();
@@ -20,6 +21,14 @@ const CreatePostWizard = () => {
     onSuccess: async () => {
       setInput("");
       await ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage && errorMessage.length > 0) {
+        toast.error(`${errorMessage[0] ?? ""}`);
+      } else {
+        toast.error("Failed to post! Please try again later.");
+      }
     },
   });
 

@@ -60,7 +60,7 @@ export const postsRouter = createTRPCRouter({
     .input(
       // validation with zod
       z.object({
-        content: z.string().emoji().min(1).max(200),
+        content: z.string().emoji("Only emojis are allowed!").min(1).max(200),
       })
     )
     .mutation(async ({ ctx, input }) => {
