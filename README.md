@@ -17,4 +17,5 @@ Simple Twitter Clone (that can only upload Emojis), using [T3 stack](https://cre
 - [Axiom](https://axiom.co/): for observability
 - [PlanetScale](https://planetscale.com/): for cloud-native SQL database 
 - [Clerk](https://clerk.com/): for easy user authentication
+- [Upstash](https://console.upstash.com/): super-easy rate limiter
 
