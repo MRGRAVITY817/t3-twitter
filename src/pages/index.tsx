@@ -14,7 +14,14 @@ const createdDate = (date: string | Date): string => dayjs(date).fromNow();
 const CreatePostWizard = () => {
   const { user } = useUser();
 
-  const { mutate } = api.posts.create.useMutation();
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: async () => {
+      setInput("");
+      await ctx.posts.getAll.invalidate();
+    },
+  });
 
   const [input, setInput] = useState<string>("");
 
@@ -39,6 +46,7 @@ const CreatePostWizard = () => {
         className="w-full bg-transparent focus:outline-none"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        disabled={isPosting}
       />
       <button
         onClick={submitPost}
